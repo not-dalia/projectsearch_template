@@ -41,7 +41,7 @@ defaults:
     values:
       layout: "supervisor"
 
-s_module: "KV6003"
+s_module: "Other"
 # Build settings
 # theme: minima
 plugins:
