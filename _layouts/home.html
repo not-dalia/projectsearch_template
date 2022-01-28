@@ -6,9 +6,9 @@ layout: default
   <div class="results-container">
     <div class="content">
       <div class="results">
-        {% assign supervisors = site.supervisors | where_exp:"supervisor", "supervisor.module contains site.s_module" %}
+        {% assign site_filter = 'available_' | append: site.s_module %}
+        {% assign supervisors = site.supervisors | where_exp:"supervisor", "supervisor[site_filter] == true" %}
         {% for supervisor in supervisors %}
-        {% if supervisor.available %}
         <a href="{{supervisor.url}}" data-url="{{supervisor.url}}" class="result-url" data-ref="{{supervisor.url | slugify}}">
           <div class="result-card" id="result-{{supervisor.url | slugify}}">
             <div class="title-row">
@@ -33,7 +33,6 @@ layout: default
             </div>
           </div>
         </a>
-        {% endif %}
         {% endfor %}
         
       </div>

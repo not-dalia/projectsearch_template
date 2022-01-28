@@ -13,9 +13,9 @@
 <body>
   <script>
     window.store = {
-      {% assign supervisors = site.supervisors | where_exp:"supervisor", "supervisor.module contains site.s_module" %}
+      {% assign site_filter = 'available_' | append: site.s_module %}
+      {% assign supervisors = site.supervisors | where_exp:"supervisor", "supervisor[site_filter] == true" %}
       {% for supervisor in supervisors %}
-        {% if supervisor.available %}
           '{{ supervisor.url | slugify }}': {
             'title': '{{ supervisor.title | xml_escape }}',
             'research_group': '{{ supervisor.research_group | xml_escape }}',
@@ -37,7 +37,6 @@
             }
           }
           {% unless forloop.last %},{% endunless %}
-        {% endif %}
       {% endfor %}
     };
 
@@ -56,15 +55,14 @@
       research_groups.add('{{theme}}')
       research_groups_slug['{{theme}}'] = '{{ theme | slugify}}'
       {% endfor %}
-      {% assign supervisors = site.supervisors | where_exp:"supervisor", "supervisor.module contains site.s_module" %}
+      {% assign site_filter = 'available_' | append: site.s_module %}
+      {% assign supervisors = site.supervisors | where_exp:"supervisor", "supervisor[site_filter] == true" %}
       {% for supervisor in supervisors %}
-        {% if supervisor.available %}
         {% for theme in supervisor.research_theme %}
   
         research_groups.add('{{theme}}')
         research_groups_slug['{{theme}}'] = '{{ theme | slugify}}'
         {% endfor %}
-        {% endif %}
       {% endfor %}
       window.research_groups = Array.from(research_groups).map(el => {
         return {
@@ -79,15 +77,14 @@
       // research_themes.add('{{theme}}')
       // research_themes_slug['{{theme}}'] = '{{ theme | slugify}}'
       {% endfor %}
-      {% assign supervisors = site.supervisors | where_exp:"supervisor", "supervisor.module contains site.s_module" %}
+      {% assign site_filter = 'available_' | append: site.s_module %}
+      {% assign supervisors = site.supervisors | where_exp:"supervisor", "supervisor[site_filter] == true" %}
       {% for supervisor in supervisors %}
-        {% if supervisor.available %}
         {% for theme in supervisor.research_themes %}
   
         research_themes.add('{{theme}}')
         research_themes_slug['{{theme}}'] = '{{ theme | slugify}}'
         {% endfor %}
-        {% endif %}
       {% endfor %}
       window.research_themes = Array.from(research_themes).map(el => {
         return {
@@ -104,15 +101,14 @@
       // additional_keywords_slug['{{theme}}'] = '{{ theme | slugify}}'
 
       {% endfor %}
-      {% assign supervisors = site.supervisors | where_exp:"supervisor", "supervisor.module contains site.s_module" %}
+      {% assign site_filter = 'available_' | append: site.s_module %}
+      {% assign supervisors = site.supervisors | where_exp:"supervisor", "supervisor[site_filter] == true" %}
       {% for supervisor in supervisors %}
-        {% if supervisor.available %}
         {% for theme in supervisor.additional_keywords %}
   
         additional_keywords.add('{{theme}}')
         additional_keywords_slug['{{theme}}'] = '{{ theme | slugify}}'
         {% endfor %}
-        {% endif %}
       {% endfor %}
   
       window.additional_keywords = Array.from(additional_keywords).map(el => {
@@ -129,16 +125,15 @@
       // technologies_languages_slug['{{theme}}'] = '{{ theme | slugify}}'
 
       {% endfor %}
-      {% assign supervisors = site.supervisors | where_exp:"supervisor", "supervisor.module contains site.s_module" %}
+      {% assign site_filter = 'available_' | append: site.s_module %}
+      {% assign supervisors = site.supervisors | where_exp:"supervisor", "supervisor[site_filter] == true" %}
       {% for supervisor in supervisors %}
-        {% if supervisor.available %}
         {% for theme in supervisor.technologies_languages %}
   
         technologies_languages.add('{{theme}}')
         technologies_languages_slug['{{theme}}'] = '{{ theme | slugify}}'
 
         {% endfor %}
-        {% endif %}
       {% endfor %}
 
       window.technologies_languages = Array.from(technologies_languages).map(el => {

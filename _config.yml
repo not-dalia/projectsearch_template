@@ -41,7 +41,8 @@ defaults:
     values:
       layout: "supervisor"
 
-s_module: "Other"
+s_module: "phd"
+primary_color: "#4A89DC"
 # Build settings
 # theme: minima
 plugins:

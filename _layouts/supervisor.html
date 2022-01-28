@@ -4,8 +4,8 @@ layout: default
 <div class="ps-container" id="supervisor">
   <div class="supervisor-container">
     <div class="content">
-
-      {% if page.available %}
+      {% assign site_filter = 'available_' | append: site.s_module %}
+      {% if page[site_filter] %}
       <div class="supervisor-card">
         <h2 class="title">
           {{ page.title }}
